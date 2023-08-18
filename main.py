@@ -20,6 +20,9 @@ def decode(key, enc):
     return "".join(dec)
 
 def save_and_encrypt_notes():
+    Input = title_entry.get()
+    FileName = str("" + Input + ".txt")
+    TextFile = open(FileName, "a")
     title = title_entry.get()
     massage = input_text.get("1.0",END)
     master_secret = input_master_secret.get()
@@ -30,10 +33,10 @@ def save_and_encrypt_notes():
         #encryption
         massage_encrypted = encode(master_secret,massage)
         try:
-            with open("mysecret.txt", "a") as data_file:
+            with open(FileName, "a") as data_file:
                 data_file.write(f"\n{title}\n{massage_encrypted}")
         except FileNotFoundError:
-           with open("mysecret.txt", "w") as data_file:
+           with open(FileName, "w") as data_file:
                data_file.write(f"\n{title}\n{massage_encrypted}")
         finally:
            title_entry.delete(0,END)
